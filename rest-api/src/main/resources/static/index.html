@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>To-Do List</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header class="header">
+      <h1><span class="logo">📝</span> My To-Do List</h1>
+    </header>
+    <main class="container">
+      <div class="input-area">
+        <form id="add-task-form">
+          <input
+            type="text"
+            id="task-title"
+            placeholder="What needs to be done?"
+            required
+          />
+          <button type="submit">Add Task</button>
+        </form>
+      </div>
+      <ul id="task-list">
+        <!-- Tasks will be dynamically inserted here -->
+      </ul>
+    </main>
+    <footer class="footer">
+      <span
+        >Made with <span style="color: #e25555">♥</span> for productivity</span
+      >
+    </footer>
+    <div id="notification" class="notification" style="display: none"></div>
+    <script src="app.js"></script>
+  </body>
+</html>

@@ -1,0 +1,36 @@
+# Maven build output
+/target/
+**/target/
+
+# Eclipse/IntelliJ IDEA project files
+*.iml
+.idea/
+*.ipr
+*.iws
+.classpath
+.project
+.settings/
+
+# VS Code
+.vscode/
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Environment files
+.env
+
+# Node/npm (if any frontend build is added later)
+node_modules/
+
+# Misc
+*.swp
+*.swo
+
+# Ignore generated static files (if any build process is added)
+/dist/
+/build/ 

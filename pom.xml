@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    
+    <!-- Spring Boot Parent POM provides sensible defaults and dependency management -->
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.1.2</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+    
+    <groupId>com.example</groupId>
+    <artifactId>todo-app</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>todo-app</name>
+    <description>A simple To-Do application</description>
+    
+    <!-- This is a parent POM, so its packaging is 'pom' -->
+    <packaging>pom</packaging>
+    
+    <properties>
+        <java.version>17</java.version>
+    </properties>
+    
+    <!-- Declaring the sub-modules -->
+    <modules>
+        <module>core-lib</module>
+        <module>rest-api</module>
+    </modules>
+
+</project>
