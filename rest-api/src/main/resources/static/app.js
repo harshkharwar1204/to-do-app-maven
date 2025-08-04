@@ -5,15 +5,23 @@ const API_URL = "http://localhost:8080/tasks";
 const taskList = document.getElementById("task-list");
 const addTaskForm = document.getElementById("add-task-form");
 const taskTitleInput = document.getElementById("task-title");
+const tasksCountElement = document.getElementById("tasks-count");
+const completedCountElement = document.getElementById("completed-count");
 
 function showNotification(message, isError = false) {
   const notification = document.getElementById("notification");
-  notification.textContent = message;
-  notification.style.background = isError ? "#e74c3c" : "#3498db";
+  notification.innerHTML = isError ? 
+    `<i class="fas fa-exclamation-circle"></i> ${message}` : 
+    `<i class="fas fa-check-circle"></i> ${message}`;
+  notification.style.background = isError ? "#ff6b6b" : "#667eea";
   notification.style.display = "block";
-  notification.style.opacity = "0.98";
+  notification.style.opacity = "1";
+  
   setTimeout(() => {
-    notification.style.display = "none";
+    notification.style.opacity = "0";
+    setTimeout(() => {
+      notification.style.display = "none";
+    }, 300);
   }, 2000);
 }
 
@@ -28,6 +36,21 @@ async function fetchAndRenderTasks() {
 
     taskList.innerHTML = ""; // Clear the list before rendering
 
+    // Update task counts
+    const completedTasks = tasks.filter(task => task.completed);
+    tasksCountElement.textContent = `${tasks.length} task${tasks.length !== 1 ? 's' : ''}`;
+    completedCountElement.textContent = `${completedTasks.length} completed`;
+
+    if (tasks.length === 0) {
+      taskList.innerHTML = `
+        <li class="empty-state">
+          <i class="fas fa-clipboard-list empty-icon"></i>
+          <p>No tasks yet. Add your first task!</p>
+        </li>
+      `;
+      return;
+    }
+
     tasks.forEach((task) => {
       const li = document.createElement("li");
       li.dataset.id = task.id;
@@ -36,7 +59,7 @@ async function fetchAndRenderTasks() {
       li.innerHTML = `
                 <span>${task.title}</span>
                 <div class="actions">
-                    <button class="delete-btn">Delete</button>
+                    <button class="delete-btn"><i class="fas fa-trash"></i></button>
                 </div>
             `;
 
@@ -114,7 +137,12 @@ async function toggleTaskCompletion(task) {
  * Deletes a task by its ID.
  */
 async function deleteTask(id) {
-  if (!confirm("Are you sure you want to delete this task?")) return;
+  // Animate the task being removed
+  const taskElement = document.querySelector(`li[data-id="${id}"]`);
+  if (taskElement) {
+    taskElement.style.opacity = "0";
+    taskElement.style.transform = "translateX(30px)";
+  }
 
   try {
     const response = await fetch(`${API_URL}/${id}`, {
@@ -122,11 +150,20 @@ async function deleteTask(id) {
     });
     if (!response.ok) throw new Error("Failed to delete task");
 
-    fetchAndRenderTasks(); // Refresh the list
+    // Wait for animation to complete before refreshing the list
+    setTimeout(() => {
+      fetchAndRenderTasks(); // Refresh the list
+    }, 300);
+    
     showNotification("Task deleted!");
   } catch (error) {
     console.error("Error deleting task:", error);
     showNotification("Failed to delete task", true);
+    // Reset the animation if there was an error
+    if (taskElement) {
+      taskElement.style.opacity = "1";
+      taskElement.style.transform = "translateX(0)";
+    }
   }
 }
 

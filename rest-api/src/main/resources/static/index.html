@@ -3,12 +3,14 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>To-Do List</title>
+    <title>Task Manager</title>
     <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   </head>
   <body>
     <header class="header">
-      <h1><span class="logo">📝</span> My To-Do List</h1>
+      <h1><i class="fas fa-check-circle logo"></i> Task Manager</h1>
+      <p class="subtitle">Organize your tasks efficiently</p>
     </header>
     <main class="container">
       <div class="input-area">
@@ -19,17 +21,23 @@
             placeholder="What needs to be done?"
             required
           />
-          <button type="submit">Add Task</button>
+          <button type="submit"><i class="fas fa-plus"></i> Add Task</button>
         </form>
+      </div>
+      <div class="task-stats">
+        <span id="tasks-count">0 tasks</span>
+        <span id="completed-count">0 completed</span>
       </div>
       <ul id="task-list">
         <!-- Tasks will be dynamically inserted here -->
       </ul>
     </main>
     <footer class="footer">
-      <span
-        >Made with <span style="color: #e25555">♥</span> for productivity</span
-      >
+      <span>Made with <i class="fas fa-heart" style="color: #ff6b6b"></i> for productivity</span>
+      <div class="footer-links">
+        <a href="#" class="footer-link">About</a>
+        <a href="#" class="footer-link">Help</a>
+      </div>
     </footer>
     <div id="notification" class="notification" style="display: none"></div>
     <script src="app.js"></script>

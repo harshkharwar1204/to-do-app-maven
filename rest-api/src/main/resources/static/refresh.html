@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Refresh Page</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Roboto, Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            text-align: center;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            max-width: 600px;
+            width: 90%;
+        }
+        h1 {
+            margin-top: 0;
+        }
+        button {
+            background: white;
+            color: #764ba2;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 10px;
+            transition: all 0.3s ease;
+        }
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+        }
+        .info {
+            margin-top: 20px;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Clear Cache & Refresh</h1>
+        <p>If you're not seeing the updated UI, your browser might be caching the old files.</p>
+        <div>
+            <button onclick="clearCacheAndRedirect()">Clear Cache & Go to App</button>
+            <button onclick="window.location.href = '/'">Go to App</button>
+        </div>
+        <div class="info">
+            <p>You can also try a hard refresh with:</p>
+            <p>Windows: Ctrl+F5 or Ctrl+Shift+R</p>
+            <p>Mac: Cmd+Shift+R</p>
+        </div>
+    </div>
+
+    <script>
+        function clearCacheAndRedirect() {
+            // This is a simple way to force the browser to reload without cache
+            // It adds a timestamp parameter to the URL to make it unique
+            const timestamp = new Date().getTime();
+            window.location.href = '/?nocache=' + timestamp;
+        }
+    </script>
+</body>
+</html>
