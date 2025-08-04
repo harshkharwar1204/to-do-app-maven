@@ -3,8 +3,11 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Task Manager</title>
-    <link rel="stylesheet" href="style.css" />
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <title>Task Manager (Port 8082)</title>
+    <link rel="stylesheet" href="style.css?v=1.1" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   </head>
   <body>
@@ -40,6 +43,15 @@
       </div>
     </footer>
     <div id="notification" class="notification" style="display: none"></div>
-    <script src="app.js"></script>
+    <script src="app.js?v=1.1"></script>
+    <script>
+      // Force reload if cached version is detected
+      window.addEventListener('error', function(e) {
+        if (e.message && (e.message.includes('Failed to fetch') || e.message.includes('8080'))) {
+          console.log('Detected port mismatch error, reloading page...');
+          window.location.href = '/refresh.html';
+        }
+      }, true);
+    </script>
   </body>
 </html>

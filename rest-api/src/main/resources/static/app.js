@@ -1,5 +1,5 @@
 // The base URL for our REST API
-const API_URL = "http://localhost:8080/tasks";
+const API_URL = "http://localhost:8082/tasks";
 
 // DOM elements
 const taskList = document.getElementById("task-list");

@@ -3,7 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Refresh Page</title>
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>Refresh Page - Port 8082</title>
     <style>
         body {
             font-family: 'Segoe UI', Roboto, Arial, sans-serif;
@@ -55,7 +58,8 @@
 <body>
     <div class="container">
         <h1>Clear Cache & Refresh</h1>
-        <p>If you're not seeing the updated UI, your browser might be caching the old files.</p>
+        <p>The application is now running on port 8082 instead of 8080 to avoid conflicts with Jenkins.</p>
+        <p>If you're seeing errors, your browser might be caching the old files with incorrect port references.</p>
         <div>
             <button onclick="clearCacheAndRedirect()">Clear Cache & Go to App</button>
             <button onclick="window.location.href = '/'">Go to App</button>
@@ -64,16 +68,33 @@
             <p>You can also try a hard refresh with:</p>
             <p>Windows: Ctrl+F5 or Ctrl+Shift+R</p>
             <p>Mac: Cmd+Shift+R</p>
+            <p><strong>Note:</strong> The API URL has been updated from port 8080 to 8082</p>
         </div>
     </div>
 
     <script>
         function clearCacheAndRedirect() {
-            // This is a simple way to force the browser to reload without cache
-            // It adds a timestamp parameter to the URL to make it unique
+            // Force clear cache for all resources
+            if ('caches' in window) {
+                caches.keys().then(function(names) {
+                    for (let name of names) caches.delete(name);
+                });
+            }
+            
+            // Add timestamp to force a fresh load
             const timestamp = new Date().getTime();
-            window.location.href = '/?nocache=' + timestamp;
+            window.location.href = '/?forcereload=' + timestamp;
         }
+        
+        // Add event listener to run on page load
+        window.addEventListener('load', function() {
+            // Clear browser cache for this domain
+            if ('caches' in window) {
+                caches.keys().then(function(names) {
+                    for (let name of names) caches.delete(name);
+                });
+            }
+        });
     </script>
 </body>
 </html>
